@@ -74,4 +74,21 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+  /** principal mi plata == pmp **/
+  --ion-color-pmp: #ff962d;
+  --ion-color-pmp-rgb: 255,150,45;
+  --ion-color-pmp-contrast: #ffffff;
+  --ion-color-pmp-contrast-rgb: 255,255,255;
+  --ion-color-pmp-shade: #e08428;
+  --ion-color-pmp-tint: #ffa142;
+}
+
+.ion-color-pmp {
+  --ion-color-base: var(--ion-color-pmp) !important;
+  --ion-color-base-rgb: var(--ion-color-pmp-rgb) !important;
+  --ion-color-contrast: var(--ion-color-pmp-contrast) !important;
+  --ion-color-contrast-rgb: var(--ion-color-pmp-contrast-rgb) !important;
+  --ion-color-shade: var(--ion-color-pmp-shade) !important;
+  --ion-color-tint: var(--ion-color-pmp-tint) !important;
 }

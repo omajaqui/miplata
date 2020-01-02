@@ -1,0 +1,23 @@
+.buttons{ 
+    padding-top: 40%;   
+    .b-save{
+        width: 50%;
+        float: right;
+    }
+    .b-cancel{
+        width: 50%;
+        float: left;
+    }
+}
+
+.c_valor{
+    
+    padding-bottom: 50px;
+}
+
+.campo_valor{
+    background-color: rgb(238, 101, 101);
+    border-style: solid;
+    border-color: rgb(238, 101, 101);
+    border-radius: 10px;
+}

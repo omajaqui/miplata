@@ -5,6 +5,14 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+  },
+  {
+    path: 'form-ingresos',
+    loadChildren: () => import('./form-ingresos/form-ingresos.module').then( m => m.FormIngresosPageModule)
+  },
+  {
+    path: 'form-gastos',
+    loadChildren: () => import('./form-gastos/form-gastos.module').then( m => m.FormGastosPageModule)
   }
 ];
 @NgModule({

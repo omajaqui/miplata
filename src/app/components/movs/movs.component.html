@@ -1,0 +1,23 @@
+<!-- fab ubicacion inferior derecho con botones top and start -->
+
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button color="pmp">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+
+  <ion-fab-list side="top">
+    <ion-fab-button color="danger" (click)="openFormGastos()">
+      <ion-icon name="remove"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button color="success" (click)="openFormIngresos()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>    
+  </ion-fab-list>
+
+  <ion-fab-list side="start">
+    <ion-fab-button color="medium">
+      <ion-icon name="build"></ion-icon>
+    </ion-fab-button>
+  </ion-fab-list>
+
+</ion-fab>

@@ -1,0 +1,56 @@
+<ion-header>  
+  <ion-toolbar color="pmp">
+    <ion-buttons slot="end" (click)="closeModal()">
+      <ion-icon name="close"></ion-icon>
+    </ion-buttons>    
+    <ion-title>{{paramTitle}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-card>
+  <ion-card-content>
+    <form [formGroup]="ingresosForm">
+      <ion-item id="c_valor">
+        <ion-input 
+          type="number"
+          formControlName="valorIngreso" 
+          placeholder=" Valor de Ingreso:"
+          class="campo_valor"></ion-input>
+      </ion-item><br><hr>
+      <ion-item>
+        <ion-label>Categoria de ingreso</ion-label>      
+        <ion-select formControlName="categoria"
+                    okText="Listo"      
+                    cancelText="Cancelar"
+                    interface="popover"
+                    placeHolder="Seleccione"
+                    #C (ionChange)="onChange(C.value)">
+          <ion-select-option *ngFor="let cat of catIngresos" value="{{cat.name}}">
+            {{cat.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item><br>
+      <ion-item>
+        <ion-input type="text" formControlName="notaIngreso" placeholder="Nota:"></ion-input>
+      </ion-item>      
+    </form>
+  </ion-card-content>
+  
+  <div class="buttons">
+    <ion-buttons slot="primary" class="b-save">
+      <ion-button (click)="guardar()" [disabled]="!ingresosForm.valid">
+        <ion-label>GUARDAR</ion-label>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="primary" class="b-cancel">
+      <ion-button (click)="closeModal()">
+        <ion-label>CANCELAR</ion-label>
+      </ion-button>
+    </ion-buttons>
+
+  </div>
+    
+</ion-card>
+</ion-content>
+
