@@ -13,6 +13,10 @@ const routes: Routes = [
   {
     path: 'form-gastos',
     loadChildren: () => import('./form-gastos/form-gastos.module').then( m => m.FormGastosPageModule)
+  },
+  {
+    path: 'splash',
+    loadChildren: () => import('./pages/splash/splash.module').then( m => m.SplashPageModule)
   }
 ];
 @NgModule({
