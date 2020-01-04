@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 
 @Component({
   selector: 'app-splash',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SplashPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    public modalCtrl: ModalController, 
+    public splashScreen: SplashScreen   
+  ) { }
 
   ngOnInit() {
+  }
+
+  ionViewDidEnter() {
+    this.splashScreen.hide();
+    setTimeout(() => {
+      this.modalCtrl.dismiss();
+    }, 4000);
   }
 
 }
