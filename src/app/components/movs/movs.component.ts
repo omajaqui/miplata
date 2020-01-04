@@ -38,9 +38,9 @@ export class MovsComponent implements OnInit {
       if (returnGastos !== null ) {
         //el objeto 'returnGastos' contiene todos los datos que se reciben
         this.returnGastos = returnGastos.data;         
-          console.log("return valor form gastos: " + this.returnGastos['valorGasto']);
-          console.log("return categoria form gastos: " + this.returnGastos['categoria']);
-          console.log("return nota form gastos: " + this.returnGastos['notaGasto']);
+          console.log("return valor form gastos: " + this.returnGastos['valor']);
+          console.log("return categoria form gastos: " + this.returnGastos['subcategoria']);
+          console.log("return nota form gastos: " + this.returnGastos['nota']);
       }
     });    
     console.log('ejecuta Function openFormGastos correctamente');
@@ -62,9 +62,9 @@ export class MovsComponent implements OnInit {
       if (returnIngresos !== null ) {
         //el objeto 'returnGastos' contiene todos los datos que se reciben
         this.returnIngresos = returnIngresos.data;         
-          console.log("return valor form Ingresos: "     + this.returnIngresos['valorIngreso']);
-          console.log("return categoria form Ingresos: " + this.returnIngresos['categoria']);
-          console.log("return nota form Ingresos: "      + this.returnIngresos['notaIngreso']);
+          console.log("return valor form Ingresos: "     + this.returnIngresos['valor']);
+          console.log("return categoria form Ingresos: " + this.returnIngresos['subcategoria']);
+          console.log("return nota form Ingresos: "      + this.returnIngresos['nota']);
       }
     });
     console.log('ejecuta Function openFormIngresos correctamente');

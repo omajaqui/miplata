@@ -11,6 +11,10 @@
 <ion-card>
   <ion-card-content>
     <form [formGroup]="gastosForm">
+      <ion-item>
+        <ion-label stacked>* Fecha Movimiento:</ion-label>
+        <ion-input formControlName="fechaMovimiento" type="date" placeholder="*Fecha Movimiento"></ion-input>
+      </ion-item>
       <ion-item id="c_valor">
         <ion-input 
           type="number" 
@@ -19,15 +23,15 @@
           class="campo_valor"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>Categoria</ion-label>      
-        <ion-select formControlName="categoria"
+        <ion-label>SubCategoria</ion-label>      
+        <ion-select formControlName="subcategoria"
                     okText="Listo"      
                     cancelText="Cancelar"
                     interface="popover"
                     placeHolder="Seleccione"
                     #C (ionChange)="onChange(C.value)">
-          <ion-select-option *ngFor="let cat of catGastos" value="{{cat.name}}">
-            {{cat.name}}</ion-select-option>
+          <ion-select-option *ngFor="let cat of listasSubcategorias" value="{{cat.Descripcion}}">
+            {{cat.Descripcion}}</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item>
