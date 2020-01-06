@@ -1,8 +1,10 @@
 #logo_splash {
     width: 80%;
     margin: auto;
-    margin-top: 45%;
-    animation: changeColor 2s ease 0 infinite;
+    margin-top: 30%;
+    .engine {
+      margin-top: -30%;
+    }
   }
 
   .tinRightIn {
@@ -31,8 +33,5 @@
     }
   }
 
-  @keyframes cambiaC{
-    from { background: red; }  /* Primer fotograma */
-    to { background: green; }  /* Último fotograma */
-  }
+  
   

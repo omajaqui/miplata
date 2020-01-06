@@ -37,12 +37,12 @@ export class FormIngresosPage implements OnInit {
       {name: 'Ahorros', icon: 'stats'},
       {name: 'Otro Ingreso', icon: ''}
     ];*/
+
     this.cargarInformacion();
     this.GetMovimientos();
   }
 
-  GetMovimientos(){    
-
+  GetMovimientos(){ 
     console.log("llamando el metodo GetMovimientos");
     this.persistencia.GetMovimientos()
     .then(lista_Movimientos => {
@@ -53,7 +53,7 @@ export class FormIngresosPage implements OnInit {
     .catch( error => {
       console.error( error );
     });    
-}
+  }
 
   async cargarInformacion()
   {
@@ -70,8 +70,7 @@ export class FormIngresosPage implements OnInit {
     await this.persistencia.GetSubcategorias(tipo)
     .then(lista => {
       //console.log(lista_Catalogos);    
-      this.listasSubcategorias = lista; 
-      
+      this.listasSubcategorias = lista;     
         
     })
     .catch( error => {
