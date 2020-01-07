@@ -9,16 +9,16 @@
     <ion-card class="movimientos-card" color="light">
         <div class="content_categorias">
           <ion-list>
-            <ion-item *ngFor="let cat of categoriasBD">
-              <ion-label>{{cat.name}}&nbsp;</ion-label>
-              <ion-icon name="{{cat.icon}}"></ion-icon>
+            <ion-item *ngFor="let cat of listaIngresos">
+              <ion-label>{{cat.Descripcion}}&nbsp;</ion-label>
+              <ion-icon name="{{cat.Icono}}"></ion-icon>
             </ion-item>
           </ion-list>          
         </div>
         <div class="content_estadistics">
           <ion-list>
-            <ion-item *ngFor="let cat of categoriasBD">
-              <ion-label>{{cat.valor}}</ion-label>
+            <ion-item *ngFor="let cat of listaIngresos">
+              <ion-label>{{cat.Valor}}</ion-label>
             </ion-item>
           </ion-list>          
         </div>      

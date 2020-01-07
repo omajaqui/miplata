@@ -81,7 +81,7 @@ async guardar() {
     subcategoria:  this.gastosForm.get('subcategoria').value,
     nota:  this.gastosForm.get('notaGasto').value,
     fechaMovimiento:this.gastosForm.get('fechaMovimiento').value,
-    categoria:1
+    categoria:2
   }
   await  this.persistencia.guardarMovimiento(dataForm);    
   const onClosedData = dataForm;

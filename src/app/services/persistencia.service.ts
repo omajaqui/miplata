@@ -28,7 +28,7 @@ export class PersistenciaService {
     .then(response => {
       let lista =[];
       for (let index = 0; index < response.rows.length; index++) {
-        lista.push({IdSubcategoria:response.rows.item(index).IdSubcategoria,Descripcion:response.rows.item(index).Descripcion });
+        lista.push({IdSubcategoria:response.rows.item(index).IdSubcategoria,Descripcion:response.rows.item(index).Descripcion , Icono:response.rows.item(index).Icono});
          // console.log("entro al for Catalogo " + response.rows.item(index).CATALOGUE_ID+ " "+ response.rows.item(index).ITEM_ID+ " " +response.rows.item(index).DESCRIPTION );
   
       }
@@ -48,11 +48,13 @@ export class PersistenciaService {
         this.db.executeSql(sql, [listaDatos["subcategoria"],listaDatos["categoria"],listaDatos["valor"],listaDatos["nota"],listaDatos["fechaMovimiento"] ])
         .then((respuesta)=>{
         console.log("se inserto correctamente el registro en la tabla TMOVIMIENTOS ");   
-         this.GetMovimientos();     
+         //this.GetMovimientos(); 
+         //this.GetGastos('2020-01-04');   
+         this.ListaMovimientos('2020-01-04',1);
   
-      }).catch(error =>{
-        console.log("Error al insertar en la tabla TMOVIMIENTOS "+JSON.stringify(error));
-      });
+      }).catch(error =>
+        Promise.reject(error));
+      
     })
   
   }
@@ -72,7 +74,31 @@ export class PersistenciaService {
           Valor: response.rows.item(index).Valor,          
           IdSubcategoria : response.rows.item(index).IdSubcategoria
         } );
-          console.log("entro al for2 TMOVIMIENTOS " + response.rows.item(index).IdSubcategoria);
+          console.log("entro al for2 TMOVIMIENTOS " + response.rows.item(index).IdSubcategoria+" "+response.rows.item(index).Valor+" "+response.rows.item(index).Fecha);
+      }
+      return Promise.resolve( lista );
+    })
+    .catch(error => Promise.reject(error));
+  }
+
+ ListaMovimientos(fecha:any, categoria:any){
+    //let sql = "SELECT * FROM TMOVIMIENTOS";
+    let sql = "SELECT M.IdSubcategoria, max(S.Descripcion) Descripcion, max(S.Icono) Icono, SUM(M.VALOR) Valor    FROM TMOVIMIENTOS M INNER JOIN TSUBCATEGORIAS S ON "+
+               "M.IdSubcategoria = S.IdSubcategoria  WHERE fecha BETWEEN DATE( ?,'start of month') AND DATE( ?)  AND m.IdCategoria= ? "+
+               " GROUP BY M.IdSubcategoria ORDER BY 4 DESC ;";           
+    console.log("entro al metodo ListaMovimientos");
+    return  this.db.executeSql(sql, [fecha,fecha,categoria])
+    .then(response => {
+      let lista =[];
+      for (let index = 0; index < response.rows.length; index++) {
+        lista.push( {  
+          IdSubcategoria:response.rows.item(index).IdSubcategoria,      
+          Descripcion:response.rows.item(index).Descripcion,
+          Icono: response.rows.item(index).Icono,
+          Valor: response.rows.item(index).Valor  
+          
+        } );
+          console.log("entro ListaMovimientos" + response.rows.item(index).IdSubcategoria +" "+response.rows.item(index).Descripcion+" "+response.rows.item(index).Icono+" "+response.rows.item(index).Valor );
       }
       return Promise.resolve( lista );
     })

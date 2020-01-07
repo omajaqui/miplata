@@ -110,8 +110,8 @@ console.log("esto es una prueba");
   {
     this.listaSubcategorias.forEach(item=>{      
       this.insertSubcategorias.push([
-        "INSERT INTO TSUBCATEGORIAS (IdSubcategoria,Descripcion,Categoria)VALUES(?,?,?) ",
-        [item.IdSubcategoria, item.Descripcion, item.Categoria]
+        "INSERT INTO TSUBCATEGORIAS (IdSubcategoria,Descripcion,Categoria, Icono)VALUES(?,?,?,?) ",
+        [item.IdSubcategoria, item.Descripcion, item.Categoria, item.Icono]
       ]);
     }); 
     
@@ -162,7 +162,7 @@ crear_t_movimientos2()
 crear_t_subcategorias()
 {
     return  new Promise((resolve,reject)=>{
-      this.db.executeSql("CREATE TABLE IF NOT EXISTS TSUBCATEGORIAS (IdSubcategoria INTEGER  NOT NULL ,Descripcion VARCHAR(50), Categoria VARCHAR(20), PRIMARY KEY(IdSubcategoria))",[])
+      this.db.executeSql("CREATE TABLE IF NOT EXISTS TSUBCATEGORIAS (IdSubcategoria INTEGER  NOT NULL ,Descripcion VARCHAR(50), Categoria VARCHAR(20),Icono VARCHAR(50), PRIMARY KEY(IdSubcategoria))",[])
     .then((respuesta)=>{
       console.log("se creo correctamente la tabla TSUBCATEGORIAS");
 

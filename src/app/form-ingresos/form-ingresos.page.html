@@ -30,7 +30,7 @@
                     interface="popover"
                     placeHolder="Seleccione"
                     #C (ionChange)="onChange(C.value)">
-          <ion-select-option *ngFor="let cat of listasSubcategorias" value="{{cat.Descripcion}}">
+          <ion-select-option *ngFor="let cat of listasSubcategorias" value="{{cat.IdSubcategoria}}">
             {{cat.Descripcion}}
           </ion-select-option>
         </ion-select>

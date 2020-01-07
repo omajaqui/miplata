@@ -38,7 +38,7 @@ export class FormIngresosPage implements OnInit {
       {name: 'Otro Ingreso', icon: ''}
     ];*/
 
-    this.cargarInformacion();
+    this.cargarListas();
     this.GetMovimientos();
   }
 
@@ -87,7 +87,7 @@ export class FormIngresosPage implements OnInit {
       subcategoria:  this.ingresosForm.get('subcategoria').value,
       nota:  this.ingresosForm.get('notaIngreso').value,
       fechaMovimiento:this.ingresosForm.get('fechaMovimiento').value,
-      categoria:2
+      categoria:1
     }
     await  this.persistencia.guardarMovimiento(dataForm);    
     const onClosedData = dataForm;
