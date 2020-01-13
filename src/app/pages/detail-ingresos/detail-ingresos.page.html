@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar color="pmp">
+    <ion-buttons slot="end" (click)="closeModal()" class="b_Toolbar">
+      <ion-icon name="close"></ion-icon>
+    </ion-buttons>
+    <ion-buttons slot="start" class="b_Toolbar">
+      <ion-icon name="{{iconoCategoria}}"></ion-icon>
+    </ion-buttons>
+    <ion-title>{{descrip}}</ion-title>
+    <p class="line_tolbar">&nbsp;&nbsp;Intervalo de tiempo: {{today}}</p>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="cat_info">
+    <ion-label class="txt_banner">{{descrip}} - Transacciones</ion-label>    
+  </div>
+  <ion-list class="content_list">
+    <div *ngFor="let item of detalleSubCategoria" class="content_data">
+      <div class="content_date">        
+        <p>{{item.fecha}}</p> <!-- hago referencia a la fecha del moviemiento -->        
+      </div>
+      <div class="content_detalle">        
+          <p class="p_valor">&nbsp;$ {{item.valor}}</p><hr> <!-- hago referencia al valor del movimiento -->        
+          <p class="p_nota_title">&nbsp;Nota: </p><br>
+          <p class="p_nota_content">&nbsp;{{item.nota}}</p>
+        
+      </div>
+    </div>
+  </ion-list>
+  <div class="btn_cancel">
+    <ion-button  expand="block" color="pmp" round (click)="closeModal()">ATRAS</ion-button> 
+  </div> 
+</ion-content>
+

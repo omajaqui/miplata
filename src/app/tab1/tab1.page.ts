@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {PersistenciaService} from '../services/persistencia.service';
+import { ModalController } from '@ionic/angular';
+
+//import pagina para cargar como modal
+import { DetailIngresosPage} from '../pages/detail-ingresos/detail-ingresos.page';
+
+// importo service
+import { UtilService } from '../services/util.service';
 
 @Component({
   selector: 'app-tab1',
@@ -8,18 +15,24 @@ import {PersistenciaService} from '../services/persistencia.service';
 })
 export class Tab1Page implements OnInit {
 
-  mesAno: any;
+  today: any;
   categoriasBD: any[] = [];
   listaIngresos:any[]=[];
 
-  constructor( public persistencia:PersistenciaService) {    
-    /*this.categoriasBD = [
-      {name:'Sueldo', valor:' 950000', icon:'cash'},
-      {name:'Deposito', valor:'325000', icon:'logo-bitcoin'},
-      {name:'Ahorros', valor:'200000', icon:'pulse'},
-      {name:'Otros', valor:'0', icon:'radio-button-on'},
-    ];*/
+  constructor(
+    public persistencia:PersistenciaService,
+    public util: UtilService,
+    public modalCtrl: ModalController,
+    ) {    
+    /* this.categoriasBD = [
+      {Descripcion:'Sueldo', Valor:' 950000', Icono:'cash'},
+      {Descripcion:'Deposito', Valor:'325000', Icono:'logo-bitcoin'},
+      {Descripcion:'Ahorros', Valor:'200000', Icono:'pulse'},
+      {Descripcion:'Otros', Valor:'0', Icono:'radio-button-on'},
+    ]; */
     //this.cargarListas();
+
+    this.today = this.util.fechaActual();
   }
 
   async cargarListas()
@@ -42,7 +55,6 @@ export class Tab1Page implements OnInit {
     }
 
   ngOnInit() {
-    this.fechaActual();   
   }
 
   ionViewWillEnter()
@@ -50,24 +62,18 @@ export class Tab1Page implements OnInit {
     this.cargarListas();
     console.log("Entro a clase tab1 ionViewWillEnter");
   }
-
- 
-
-  fechaActual() {
-    // Formato para mostrar la fecha
-    const date = new Date();
-    const options = { 
-      /* weekday: 'long', */ 
-      year: 'numeric', 
-      month: 'long', 
-      /* day: 'numeric' */ 
-    };
-    let stringDate = date.toLocaleDateString('es-CO', options);
-    stringDate = stringDate.charAt(0).toUpperCase() + stringDate.slice(1);
-    this.mesAno = stringDate;
-    return this.mesAno;
-  }
-
   
+  // este metodo crea un modal y le envia parametro
+  async viewDetail(idSub, descripcion, icono) {
+    const modalDetail = await this.modalCtrl.create({
+      component: DetailIngresosPage,
+      componentProps: { // envia parametros al modal
+        'IdSubcategoria': idSub,
+        'Descripcion': descripcion,
+        'Icono': icono,
+      } 
+    });
+    return await modalDetail.present();
+  }
 
 }

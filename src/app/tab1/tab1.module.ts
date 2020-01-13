@@ -8,8 +8,14 @@ import { Tab1Page } from './tab1.page';
 // modulo de componentes
 import { ComponentsModule } from '../components/components.module';
 
+// importo pagina que se usara como modal
+import { DetailIngresosPage } from '../pages/detail-ingresos/detail-ingresos.page';
+
 
 @NgModule({
+  entryComponents: [
+    DetailIngresosPage
+  ],
   imports: [
     IonicModule,
     CommonModule,
@@ -17,6 +23,6 @@ import { ComponentsModule } from '../components/components.module';
     ComponentsModule,
     RouterModule.forChild([{ path: '', component: Tab1Page }])
   ],
-  declarations: [Tab1Page]
+  declarations: [Tab1Page, DetailIngresosPage]
 })
 export class Tab1PageModule {}
