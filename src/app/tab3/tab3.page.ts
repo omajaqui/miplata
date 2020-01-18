@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {PersistenciaService} from '../services/persistencia.service';
+import { ModalController } from '@ionic/angular';
+
+//import pagina para cargar como modal
+import { DetailGastosPage } from '../pages/detail-gastos/detail-gastos.page';
+
+// importo service
+import { UtilService } from '../services/util.service';
 
 @Component({
   selector: 'app-tab3',
@@ -8,31 +15,36 @@ import {PersistenciaService} from '../services/persistencia.service';
 })
 export class Tab3Page implements OnInit {
 
-  mesAno: any;
+  today: any;
   subCatGastos: any[] = [];
   listaGastos:any[]=[];
 
-  constructor(public persistencia:PersistenciaService) {
-    /*this.subCatGastos = [ 
-      {name:"Automóvil",  valor:"2", icon:'car'},
-      {name:'Factura', valor:'180000', icon:'paper'},
-      {name:'Ropa', valor:'300000', icon:'shirt'},
-      {name:'Entretenimiento', valor:'80000', icon:'reverse-camera'},
-      {name:'Venecas', valor:'250000', icon:'woman'},
-      {name:'Comida', valor:'250000', icon:'restaurant'},
-      {name:'Gasolina', valor:'120000', icon:'speedometer'},
-      {name:'General', valor:'80000', icon:'checkbox-outline'},
-      {name:'Regalos', valor:'90000', icon:'cube'},
-      {name:'Salud', valor:'450000', icon:'medkit'},
-      {name:'Vacaciones', valor:'2400000', icon:'paper-plane'},
-      {name:'Hogar', valor:'650000', icon:'home'},
-      {name:'Niños', valor:'200000', icon:'sad'},
-      {name:'Otros', valor:'120000', icon:'sync'},      
-    ];*/
+  constructor(
+    public persistencia:PersistenciaService,    
+    public modalCtrl: ModalController,
+    public util: UtilService,
+    ) {
+    /* this.subCatGastos = [ 
+      {Descripcion:"Automóvil",  Valor:"2", Icono:'car', IdSubcategoria: '1'},
+      {Descripcion:'Factura', Valor:'180000', Icono:'paper', IdSubcategoria: '2'},
+      {Descripcion:'Ropa', Valor:'300000', Icono:'shirt', IdSubcategoria: '3'},
+      {Descripcion:'Entretenimiento', Valor:'80000', Icono:'reverse-camera', IdSubcategoria: '4'},
+      {Descripcion:'Venecas', Valor:'250000', Icono:'woman', IdSubcategoria: '5'},
+      {Descripcion:'Comida', Valor:'250000', Icono:'restaurant', IdSubcategoria: '6'},
+      {Descripcion:'Gasolina', Valor:'120000', Icono:'speedometer', IdSubcategoria: '7'},
+      {Descripcion:'General', Valor:'80000', Icono:'checkbox-outline', IdSubcategoria: '8'},
+      {Descripcion:'Regalos', Valor:'90000', Icono:'cube', IdSubcategoria: '9'},
+      {Descripcion:'Salud', Valor:'450000', Icono:'medkit', IdSubcategoria: '10'},
+      {Descripcion:'Vacaciones', Valor:'2400000', Icono:'paper-plane', IdSubcategoria: '11'},
+      {Descripcion:'Hogar', Valor:'650000', Icono:'home', IdSubcategoria: '12'}, //me salto el 12+1 que es de mala suerte
+      {Descripcion:'Niños', Valor:'200000', Icono:'sad', IdSubcategoria: '14'},
+      {Descripcion:'Otros', Valor:'120000', Icono:'sync', IdSubcategoria: '15'},      
+    ];
+ */
+    this.today = this.util.fechaActual();
   }
 
-  ngOnInit() {
-    this.fechaActual();
+  ngOnInit() {    
   }
 
   ionViewWillEnter()
@@ -40,22 +52,7 @@ export class Tab3Page implements OnInit {
     this.cargarListas();
     console.log("Entro a clase tab1 ionViewWillEnter");
   }
-
-  fechaActual() {
-    // Formato para mostrar la fecha
-    const date = new Date();
-    const options = { 
-      /* weekday: 'long', */ 
-      year: 'numeric', 
-      month: 'long', 
-      /* day: 'numeric' */ 
-    };
-    let stringDate = date.toLocaleDateString('es-CO', options);
-    stringDate = stringDate.charAt(0).toUpperCase() + stringDate.slice(1);
-    this.mesAno = stringDate;
-    return this.mesAno;
-  }
-
+ 
   async cargarListas()
   {
     console.log("entro a metodo cargarListas");
@@ -73,6 +70,20 @@ export class Tab3Page implements OnInit {
     .catch( error => {
       console.error( error );
     });
-    }
+  }
+
+  // este metodo crea un modal y le envia parametro
+  async viewDetail(idSub, descripcion, icono) {
+    const modalDetail = await this.modalCtrl.create({
+      component: DetailGastosPage,
+      componentProps: { // envia parametros al modal
+        'IdSubcategoria': idSub,
+        'Descripcion': descripcion,
+        'Icono': icono,
+      } 
+    });
+    return await modalDetail.present();
+  }
+
 
 }

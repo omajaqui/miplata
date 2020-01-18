@@ -98,6 +98,7 @@ async guardar() {
     const onClosedData = dataForm;
     await this.modalCtrl.dismiss(onClosedData);
   }*/
+  
   // permite realizar acciones al cambiar de option(categoria)
   onChange(value) {
     console.log(value);

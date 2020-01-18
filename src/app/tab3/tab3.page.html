@@ -1,13 +1,13 @@
 <ion-content>
   <div class="cat_info">
-    <ion-label class="this_mes">{{mesAno}}</ion-label>
+    <ion-label class="this_mes">{{today}}</ion-label>
     <ion-img src="../../assets/img/icon_banner_gastos.png"></ion-img>
   </div>
   <app-movs></app-movs>    
     <ion-card class="movimientos-card" color="light">
         <div class="content_categorias">
           <ion-list>
-            <ion-item *ngFor="let cat of listaGastos">
+            <ion-item *ngFor="let cat of listaGastos" (click)="viewDetail(cat.IdSubcategoria, cat.Descripcion, cat.Icono)">
               <ion-label>{{cat.Descripcion}}&nbsp;</ion-label>
               <ion-icon name="{{cat.Icono}}"></ion-icon>
             </ion-item>
@@ -16,7 +16,7 @@
         <div class="content_estadistics">
           <ion-list>
             <ion-item *ngFor="let cat of listaGastos">
-              <ion-label>{{cat.Valor}}</ion-label>
+              <ion-label>{{cat.Valor | number:'1.'}}</ion-label>
             </ion-item>
           </ion-list>          
         </div>      

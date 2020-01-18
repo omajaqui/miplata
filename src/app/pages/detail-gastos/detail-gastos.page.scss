@@ -1,0 +1,72 @@
+.btn_cancel {
+    width: 98%;
+    border-radius: 5px;
+    position:absolute;
+    bottom:5px;
+    right:10px;
+    box-shadow: 0px -12px 22px -7px rgba(255,150,45,0.75);
+}
+
+.content_data {
+  box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.75); 
+  margin-bottom: 10px;
+  .content_date {
+    width: 25%;     
+    margin-left:0;
+    float: left;
+    ion-label {
+      text-align: right;
+    }
+  }
+  .content_detalle {
+    width: 73%;
+    margin-left:27%;
+    box-shadow: -3px 0px 3px 0px rgba(0,0,0,0.75);
+    .p_valor{
+      color: red;
+      font-size: 20px;
+      margin-bottom: -10px;
+    }
+    .p_nota_title {
+      margin-top: -5px;
+      font-size: 10px;
+    }
+    .p_nota_content {
+      margin-top: -20px;
+      font-size: 10px;
+    }
+  }
+}
+
+ion-title {
+  padding-top: 10px;
+}
+
+.b_Toolbar {
+  ion-icon {
+    font-size: 35px;
+  }
+}
+.line_tolbar {
+  margin-top: -3px;
+  font-size: 15px;
+}
+
+.cat_info {
+  width: 100%;
+  height: 6%;
+  background-color: var(--ion-color-smp);
+  color: white;
+  box-shadow: 0px 5px 25px -10px rgba(0,0,0,0.75);
+  ion-img {
+    width: 20%;
+    margin: auto;
+    z-index: 1;
+    position: relative;
+  }
+  .txt_banner{
+    float: left;
+    margin-top: 10px;
+    margin-left: 10px;
+  }  
+}
