@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
+import {GlobalService} from '../services/global.service';
+import { Observable, observable } from 'rxjs';
 
 
 
@@ -11,8 +13,11 @@ import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
 export class PersistenciaService {
 
   db:SQLiteObject;
+  today1 = new Date();
+  fecha:any;
 
-  constructor(public sqlite: SQLite              ) {
+  constructor(public sqlite: SQLite,
+              public global: GlobalService             ) {
     console.log('Hello PersistenciaProvider Provider');
   }
 
@@ -49,8 +54,17 @@ export class PersistenciaService {
         .then((respuesta)=>{
         console.log("se inserto correctamente el registro en la tabla TMOVIMIENTOS ");   
          //this.GetMovimientos(); 
-         //this.GetGastos('2020-01-04');   
-         this.ListaMovimientos('2020-01-04',1);
+         //this.GetGastos('2020-01-04');  
+         this.fecha =this.today1.getFullYear() + '-' + ('0' + (this.today1.getMonth() + 1)).slice(-2) + '-' + ('0' + this.today1.getDate()).slice(-2); 
+         this.ListarMovimientos(this.fecha ,1).then(lista => {
+          //console.log(lista_Catalogos);    
+          this.global.listaIngresos= lista; 
+          console.log(" tamaño lista global "+ this.global.listaIngresos.length) ;
+            
+        })
+        .catch( error => {
+          console.error( error );
+        });
   
       }).catch(error =>
         Promise.reject(error));
@@ -81,7 +95,7 @@ export class PersistenciaService {
     .catch(error => Promise.reject(error));
   }
 
- ListaMovimientos(fecha:any, categoria:any){
+ ListarMovimientos(fecha:any, categoria:any){
     //let sql = "SELECT * FROM TMOVIMIENTOS";
     let sql = "SELECT M.IdSubcategoria, max(S.Descripcion) Descripcion, max(S.Icono) Icono, SUM(M.VALOR) Valor    FROM TMOVIMIENTOS M INNER JOIN TSUBCATEGORIAS S ON "+
                "M.IdSubcategoria = S.IdSubcategoria  WHERE fecha BETWEEN DATE( ?,'start of month') AND DATE( ?)  AND m.IdCategoria= ? "+
@@ -106,4 +120,66 @@ export class PersistenciaService {
   }
 
 
+  async guardarMovimiento1(listaDatos:any)
+  {
+    let sql=" INSERT INTO TMOVIMIENTOS (IdSubcategoria,IdCategoria,Valor,Nota,Fecha) VALUES(?,?,?,?,?) ";  
+    
+     
+      console.log("crear movimientos "+ JSON.stringify(listaDatos) );
+      return await new Promise((resolve,reject)=>{
+  
+        this.db.executeSql(sql, [listaDatos["subcategoria"],listaDatos["categoria"],listaDatos["valor"],listaDatos["nota"],listaDatos["fechaMovimiento"] ])
+        .then((respuesta)=>{
+        console.log("se inserto correctamente el registro en la tabla TMOVIMIENTOS ");   
+         //this.GetMovimientos(); 
+         //this.GetGastos('2020-01-04');  
+         this.fecha =this.today1.getFullYear() + '-' + ('0' + (this.today1.getMonth() + 1)).slice(-2) + '-' + ('0' + this.today1.getDate()).slice(-2); 
+         this.ListarMovimientos(this.fecha ,1).then(lista => {
+          //console.log(lista_Catalogos);    
+          this.global.listaIngresos= lista; 
+          console.log(" tamaño lista global "+ this.global.listaIngresos.length) ;
+            
+        })
+        .catch( error => {
+          console.error( error );
+        });
+  
+      }).catch(error =>
+        Promise.reject(error));
+      
+    })
+  
+  }
+
+  /*public getProducts(): Observable<TMovimentos[]> {
+    
+     return Observable.this.db.e.executeSql(sql, [listaDatos["subcategoria"],listaDatos["categoria"],listaDatos["valor"],listaDatos["nota"],listaDatos["fechaMovimiento"] ])
+        .then((respuesta)=>{
+        console.log("se inserto correctamente el registro en la tabla TMOVIMIENTOS ");   
+         //this.GetMovimientos(); 
+         //this.GetGastos('2020-01-04');  
+         this.fecha =this.today1.getFullYear() + '-' + ('0' + (this.today1.getMonth() + 1)).slice(-2) + '-' + ('0' + this.today1.getDate()).slice(-2); 
+         this.ListarMovimientos(this.fecha ,1).then(lista => {
+          //console.log(lista_Catalogos);    
+          this.global.listaIngresos= lista; 
+          console.log(" tamaño lista global "+ this.global.listaIngresos.length) ;
+            
+        })
+        .catch( error => {
+          console.error( error );
+        });
+    
+  }*/
+
+
 }
+/*
+export class TMovimentos {
+  id: number;
+  name: string;
+  cost: number;
+  quantity: number;
+  constructor(values: Object = {}) {
+       Object.assign(this, values);
+  }
+}*/

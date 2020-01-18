@@ -64,7 +64,7 @@ export class Tab3Page implements OnInit {
   }
 
   async Ingresos(fecha:any){
-    await this.persistencia.ListaMovimientos(fecha,2)
+    await this.persistencia.ListarMovimientos(fecha,2)
     .then(lista => {
       //console.log(lista_Catalogos);    
       this.listaGastos = lista;     

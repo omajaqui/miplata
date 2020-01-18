@@ -5,6 +5,7 @@ import { ModalController , NavParams } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import {PersistenciaService} from '../services/persistencia.service';
+import {GlobalService} from '../services/global.service';
 
 @Component({
   selector: 'app-form-ingresos',
@@ -22,7 +23,8 @@ export class FormIngresosPage implements OnInit {
     public modalCtrl: ModalController,
     public navParams: NavParams,
     public form: FormBuilder,
-    public persistencia:PersistenciaService
+    public persistencia:PersistenciaService,
+    public global:GlobalService
   ) {
     this.ingresosForm = this.form.group({
       valorIngreso: ['', [Validators.required, Validators.pattern(/^[0-9]{1,20}$/)]],
@@ -89,7 +91,8 @@ export class FormIngresosPage implements OnInit {
       fechaMovimiento:this.ingresosForm.get('fechaMovimiento').value,
       categoria:1
     }
-    await  this.persistencia.guardarMovimiento(dataForm);    
+    await  this.persistencia.guardarMovimiento(dataForm); 
+       
     const onClosedData = dataForm;
     this.modalCtrl.dismiss(onClosedData);
   } 

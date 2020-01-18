@@ -19,6 +19,8 @@ export class MovsComponent implements OnInit {
   constructor(
     public modalCtrl: ModalController
   ) {
+
+    console.log("se abre openFormGastos");
   }
 
   ngOnInit() {}
@@ -33,10 +35,12 @@ export class MovsComponent implements OnInit {
         'paramTitle': 'Formulario Gastos'
       }
     });
+
     // **recibe parametros al cerrar el modal
     modalGastos.onDidDismiss().then((returnGastos) => {
       if (returnGastos !== null ) {
         //el objeto 'returnGastos' contiene todos los datos que se reciben
+        console.log("se cierra openFormGastos");
         this.returnGastos = returnGastos.data;         
           console.log("return valor form gastos: " + this.returnGastos['valor']);
           console.log("return categoria form gastos: " + this.returnGastos['subcategoria']);
