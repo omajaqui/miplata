@@ -16,14 +16,14 @@
     <ion-label class="txt_banner">{{descrip}} - Transacciones</ion-label>    
   </div>
   <ion-list class="content_list">
-    <div *ngFor="let item of detalleSubCategoria" class="content_data">
+    <div *ngFor="let item of listaDetailIngresos" class="content_data">
       <div class="content_date">        
-        <p>{{item.fecha}}</p> <!-- hago referencia a la fecha del moviemiento -->        
+        <p>{{item.Fecha}}</p> <!-- hago referencia a la fecha del moviemiento -->        
       </div>
       <div class="content_detalle">        
-          <p class="p_valor">&nbsp;$ {{item.valor}}</p><hr> <!-- hago referencia al valor del movimiento -->        
+          <p class="p_valor">&nbsp;$ {{item.Valor}}</p><hr> <!-- hago referencia al valor del movimiento -->        
           <p class="p_nota_title">&nbsp;Nota: </p><br>
-          <p class="p_nota_content">&nbsp;{{item.nota}}</p>
+          <p class="p_nota_content">&nbsp;{{item.Nota}}</p>
         
       </div>
     </div>

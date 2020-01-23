@@ -56,7 +56,7 @@ export class PersistenciaService {
          //this.GetMovimientos(); 
          //this.GetGastos('2020-01-04');  
          this.fecha =this.today1.getFullYear() + '-' + ('0' + (this.today1.getMonth() + 1)).slice(-2) + '-' + ('0' + this.today1.getDate()).slice(-2); 
-         this.ListarMovimientos(this.fecha ,1).then(lista => {
+         this.ListarMovimientos(this.fecha ,listaDatos["categoria"]).then(lista => {
           //console.log(lista_Catalogos);    
           this.global.listaIngresos= lista; 
           console.log(" tamaño lista global "+ this.global.listaIngresos.length) ;
@@ -113,6 +113,27 @@ export class PersistenciaService {
           
         } );
           console.log("entro ListaMovimientos" + response.rows.item(index).IdSubcategoria +" "+response.rows.item(index).Descripcion+" "+response.rows.item(index).Icono+" "+response.rows.item(index).Valor );
+      }
+      return Promise.resolve( lista );
+    })
+    .catch(error => Promise.reject(error));
+  }
+
+  ListarDetalleMovimientos(fecha:any, subcategoria:any){
+    //let sql = "SELECT * FROM TMOVIMIENTOS";
+    let sql = "SELECT fecha, Valor, Nota FROM TMOVIMIENTOS WHERE fecha BETWEEN DATE( ?,'start of month') AND DATE( ?) AND IdSubcategoria = ? order by fecha ;";           
+    console.log("entro al metodo ListarDetalleMovimientos");
+    return  this.db.executeSql(sql, [fecha,fecha,subcategoria])
+    .then(response => {
+      let lista =[];
+      for (let index = 0; index < response.rows.length; index++) {
+        lista.push( {  
+          Fecha:response.rows.item(index).Fecha,      
+          Nota:response.rows.item(index).Nota,         
+          Valor: response.rows.item(index).Valor  
+          
+        } );
+          console.log("entro ListarDetalleMovimientos" + response.rows.item(index).Fecha +" "+response.rows.item(index).Nota+" "+response.rows.item(index).Valor );
       }
       return Promise.resolve( lista );
     })

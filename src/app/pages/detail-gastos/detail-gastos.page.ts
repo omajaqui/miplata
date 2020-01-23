@@ -20,9 +20,14 @@ export class DetailGastosPage implements OnInit {
   // variables donde recibo parametros al abrir el modal
   descrip: string;
   iconoCategoria: string;
+  listaDetailGastos:any[]=[];
+  subcategoria:string; 
 
   detalleSubCategoria: any[]=[];
   today: any;
+  today1 = new Date();
+  fecha:any;
+  
   
   constructor(
     public modalCtrl: ModalController,
@@ -32,7 +37,8 @@ export class DetailGastosPage implements OnInit {
   ) { 
     // datos recibidos por navparams
     this.descrip = navParams.get('Descripcion');
-    this.iconoCategoria = navParams.get('Icono');        
+    this.iconoCategoria = navParams.get('Icono');  
+     this.subcategoria = navParams.get('IdSubcategoria');     
     console.log('id subcategoria: ' + 
                     navParams.get('IdSubcategoria')+ 
                     ', Descripcion: ' + this.descrip +
@@ -54,5 +60,28 @@ export class DetailGastosPage implements OnInit {
   async closeModal() {
     await this.modalCtrl.dismiss();
   }
+
+  ionViewWillEnter()
+  {
+    this.cargarGastos();
+    console.log("Entro a clase tab1 ionViewWillEnter");
+  }
+
+  async cargarGastos()
+  {
+    this.fecha =this.today1.getFullYear() + '-' + ('0' + (this.today1.getMonth() + 1)).slice(-2) + '-' + ('0' + this.today1.getDate()).slice(-2);
+    await this.Gastos(this.fecha);
+  }
+
+  async Gastos(fecha:any){
+    await this.persistencia.ListarDetalleMovimientos(fecha,this.subcategoria)
+    .then(lista => {
+      //console.log(lista_Catalogos);    
+      this.listaDetailGastos = lista;          
+    })
+    .catch( error => {
+      console.error( error );
+    });
+    }
 
 }

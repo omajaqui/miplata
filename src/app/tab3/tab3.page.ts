@@ -18,6 +18,8 @@ export class Tab3Page implements OnInit {
   today: any;
   subCatGastos: any[] = [];
   listaGastos:any[]=[];
+  today1 = new Date();
+  fecha:any;
 
   constructor(
     public persistencia:PersistenciaService,    
@@ -56,11 +58,12 @@ export class Tab3Page implements OnInit {
   async cargarListas()
   {
     console.log("entro a metodo cargarListas");
-    await this.Ingresos('2020-01-06');
+    this.fecha =this.today1.getFullYear() + '-' + ('0' + (this.today1.getMonth() + 1)).slice(-2) + '-' + ('0' + this.today1.getDate()).slice(-2);
+    await this.Gastos(this.fecha);
     //await this.GetCategorias();
   }
 
-  async Ingresos(fecha:any){
+  async Gastos(fecha:any){
     await this.persistencia.ListarMovimientos(fecha,2)
     .then(lista => {
       //console.log(lista_Catalogos);    
