@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController , NavParams } from '@ionic/angular';
+import { ModalController , NavParams, NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 // package para utilizar formularios
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import {PersistenciaService} from '../services/persistencia.service';
 import {GlobalService} from '../services/global.service';
+
+import {FormGastosPage} from '../form-gastos/form-gastos.page';
 
 @Component({
   selector: 'app-form-ingresos',
@@ -24,7 +27,9 @@ export class FormIngresosPage implements OnInit {
     public navParams: NavParams,
     public form: FormBuilder,
     public persistencia:PersistenciaService,
-    public global:GlobalService
+    public global:GlobalService,
+    public navCtrl:NavController,
+    public router:Router
   ) {
     this.ingresosForm = this.form.group({
       valorIngreso: ['', [Validators.required, Validators.pattern(/^[0-9]{1,20}$/)]],
@@ -91,10 +96,17 @@ export class FormIngresosPage implements OnInit {
       fechaMovimiento:this.ingresosForm.get('fechaMovimiento').value,
       categoria:1
     }
-    await  this.persistencia.guardarMovimiento(dataForm); 
-       
+    console.log("antes de guardar");
+      await  this.persistencia.guardarMovimiento(dataForm); 
+    console.log("despues de guardar");   
     const onClosedData = dataForm;
     this.modalCtrl.dismiss(onClosedData);
+    //this.navCtrl.navigateRoot(['/']); 
+    //this.navCtrl.setDirection(FormGastosPage);
+    
+    console.log("despues de redireccionar");
+
+    
   } 
 /*
   async guardar() {
@@ -113,7 +125,7 @@ export class FormIngresosPage implements OnInit {
   }
 
   async closeModal() {
-    await this.modalCtrl.dismiss();
+    await this.modalCtrl.dismiss(null);
   }
 
 

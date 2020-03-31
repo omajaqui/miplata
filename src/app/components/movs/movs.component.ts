@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController,NavController } from '@ionic/angular';
 import { FormGastosPage } from '../../form-gastos/form-gastos.page';
 import { FormIngresosPage } from '../../form-ingresos/form-ingresos.page';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movs',
@@ -17,14 +18,23 @@ export class MovsComponent implements OnInit {
   returnIngresos: any;
 
   constructor(
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    public router:Router,
+    public navController:NavController
   ) {
 
     console.log("se abre openFormGastos");
   }
 
   ngOnInit() {}
+/*
+  async openFormGastos() {
+    this.navController.navigateRoot(['/form-gastos']);   
+   // this.router.navigate(['/form-gastos'],{replaceUrl:true});
+    
+  }*/
 
+  
   async openFormGastos() {
     const modalGastos = await this.modalCtrl.create({
       component: FormGastosPage,
@@ -38,6 +48,7 @@ export class MovsComponent implements OnInit {
 
     // **recibe parametros al cerrar el modal
     modalGastos.onDidDismiss().then((returnGastos) => {
+      console.log("antes de verificar valor"+ JSON.stringify(returnGastos));
       if (returnGastos !== null ) {
         //el objeto 'returnGastos' contiene todos los datos que se reciben
         console.log("se cierra openFormGastos");
@@ -45,11 +56,21 @@ export class MovsComponent implements OnInit {
           console.log("return valor form gastos: " + this.returnGastos['valor']);
           console.log("return categoria form gastos: " + this.returnGastos['subcategoria']);
           console.log("return nota form gastos: " + this.returnGastos['nota']);
+          //this.router.navigate(['/']);
+          this.navController.navigateRoot(['/']);
       }
     });    
     console.log('ejecuta Function openFormGastos correctamente');
     return await modalGastos.present();
+    
   }
+/*
+  async openFormIngresos() {
+
+    this.navController.navigateRoot(['/form-ingresos']);
+    //this.router.navigate(['/form-gastos'],{replaceUrl:true});    
+  }*/
+
 
   async openFormIngresos() {
     const modalIngresos = await this.modalCtrl.create({
@@ -63,12 +84,15 @@ export class MovsComponent implements OnInit {
     });
     // **recibe parametros al cerrar el modal
     modalIngresos.onDidDismiss().then((returnIngresos) => {
-      if (returnIngresos !== null ) {
+      console.log("antes de verificar valor"+ JSON.stringify(returnIngresos).trim());
+      if (returnIngresos['data'] !== null ) {
         //el objeto 'returnGastos' contiene todos los datos que se reciben
         this.returnIngresos = returnIngresos.data;         
           console.log("return valor form Ingresos: "     + this.returnIngresos['valor']);
           console.log("return categoria form Ingresos: " + this.returnIngresos['subcategoria']);
           console.log("return nota form Ingresos: "      + this.returnIngresos['nota']);
+          //this.router.navigate(['/']);
+          this.navController.navigateRoot(['/']);
       }
     });
     console.log('ejecuta Function openFormIngresos correctamente');

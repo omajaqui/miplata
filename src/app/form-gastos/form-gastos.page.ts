@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController , NavParams } from '@ionic/angular';
+import { ModalController , NavParams,NavController } from '@ionic/angular';
 
 // package para utilizar formularios
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -26,7 +26,8 @@ export class FormGastosPage implements OnInit {
     public modalCtrl: ModalController,
     public navParams: NavParams,
     public form: FormBuilder,
-    public persistencia:PersistenciaService
+    public persistencia:PersistenciaService,
+    public navController:NavController
   ) {
     // datos recibidos por navparams
     console.log('datos recividos por navparams: ' + navParams.get('paramTitle'));
@@ -83,9 +84,13 @@ async guardar() {
     fechaMovimiento:this.gastosForm.get('fechaMovimiento').value,
     categoria:2
   }
-  await  this.persistencia.guardarMovimiento(dataForm);    
+  console.log("antes de guardar gastos");
+  await  this.persistencia.guardarMovimiento(dataForm); 
+  console.log("despues de guardar gastos");   
   const onClosedData = dataForm;
-  await this.modalCtrl.dismiss(onClosedData);
+  this.modalCtrl.dismiss(onClosedData);
+  //this.navController.navigateRoot(['/']);  
+  //console.log("despues de guardar gastos");  
 } 
 
 /*
@@ -129,7 +134,7 @@ async guardar() {
     }
 
   async closeModal() {
-    await this.modalCtrl.dismiss();
+    await this.modalCtrl.dismiss(null);
   }
 
 }

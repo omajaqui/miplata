@@ -8,6 +8,7 @@ import { FormIngresosPageRoutingModule } from './form-ingresos-routing.module';
 
 import { FormIngresosPage } from './form-ingresos.page';
 
+
 @NgModule({
   imports: [
     CommonModule,

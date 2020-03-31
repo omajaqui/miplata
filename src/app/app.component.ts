@@ -6,6 +6,7 @@ import{BasedatosService} from '../app/services/basedatos.service';
 
 // importo la pagina que se usara como splash
 import {SplashPage} from './pages/splash/splash.page';
+import {DetailIngresosPage} from './pages/detail-ingresos/detail-ingresos.page';
 
 @Component({
   selector: 'app-root',

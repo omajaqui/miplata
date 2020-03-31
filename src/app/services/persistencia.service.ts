@@ -55,7 +55,8 @@ export class PersistenciaService {
         console.log("se inserto correctamente el registro en la tabla TMOVIMIENTOS ");   
          //this.GetMovimientos(); 
          //this.GetGastos('2020-01-04');  
-         this.fecha =this.today1.getFullYear() + '-' + ('0' + (this.today1.getMonth() + 1)).slice(-2) + '-' + ('0' + this.today1.getDate()).slice(-2); 
+         //this.fecha =this.today1.getFullYear() + '-' + ('0' + (this.today1.getMonth() + 1)).slice(-2) + '-' + ('0' + this.today1.getDate()).slice(-2); 
+         /*
          this.ListarMovimientos(this.fecha ,listaDatos["categoria"]).then(lista => {
           //console.log(lista_Catalogos);    
           this.global.listaIngresos= lista; 
@@ -64,7 +65,8 @@ export class PersistenciaService {
         })
         .catch( error => {
           console.error( error );
-        });
+        });*/
+        resolve(respuesta);
   
       }).catch(error =>
         Promise.reject(error));

@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import {FormGastosPage} from '../app/form-gastos/form-gastos.page';
+import{FormIngresosPage} from '../app/form-ingresos/form-ingresos.page';
+
 
 const routes: Routes = [
 
@@ -15,7 +18,7 @@ const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
-    path: 'form-ingresos',
+    path: 'form-ingresos',   
     loadChildren: () => import('./form-ingresos/form-ingresos.module').then( m => m.FormIngresosPageModule)
   },
   {

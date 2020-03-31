@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,NgZone  } from '@angular/core';
 import {PersistenciaService} from '../services/persistencia.service';
-import { ModalController } from '@ionic/angular';
-
+import { ModalController, Events } from '@ionic/angular';
+import { Router, CanActivate, ActivatedRouteSnapshot,RouterStateSnapshot } from '@angular/router';
 //import pagina para cargar como modal
 import { DetailGastosPage } from '../pages/detail-gastos/detail-gastos.page';
 
+
+
 // importo service
 import { UtilService } from '../services/util.service';
+
 
 @Component({
   selector: 'app-tab3',
@@ -14,6 +17,7 @@ import { UtilService } from '../services/util.service';
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page implements OnInit {
+  
 
   today: any;
   subCatGastos: any[] = [];
@@ -25,6 +29,8 @@ export class Tab3Page implements OnInit {
     public persistencia:PersistenciaService,    
     public modalCtrl: ModalController,
     public util: UtilService,
+    public events: Events,
+    private zone: NgZone
     ) {
     /* this.subCatGastos = [ 
       {Descripcion:"Automóvil",  Valor:"2", Icono:'car', IdSubcategoria: '1'},
@@ -43,17 +49,19 @@ export class Tab3Page implements OnInit {
       {Descripcion:'Otros', Valor:'120000', Icono:'sync', IdSubcategoria: '15'},      
     ];
  */
-    this.today = this.util.fechaActual();
+    this.today = this.util.fechaActual();    
   }
 
-  ngOnInit() {    
-  }
+  ngOnInit() {
+    console.log("Entro a ngOnInit");
+  }  
 
   ionViewWillEnter()
   {
     this.cargarListas();
     console.log("Entro a clase tab1 ionViewWillEnter");
-  }
+  } 
+ 
  
   async cargarListas()
   {

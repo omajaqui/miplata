@@ -8,6 +8,7 @@ import { FormGastosPageRoutingModule } from './form-gastos-routing.module';
 
 import { FormGastosPage } from './form-gastos.page';
 
+
 @NgModule({
   imports: [
     CommonModule,

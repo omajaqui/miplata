@@ -11,13 +11,15 @@ import { AppComponent } from './app.component';
 
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
 
+
+
 // pagina creada para splash
 import { SplashPage} from './pages/splash/splash.page';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SplashPage
+    SplashPage,
   ],
   entryComponents: [SplashPage],
   imports: [
